@@ -1,0 +1,193 @@
+local targetPlayer = game:GetService("Players"):FindFirstChild("r0tt1ngf4irys")
+local listening = true
+local following = false
+local jumping = false
+local triping = false
+local bringing = false
+local circle = false
+
+game:GetService("Players").r0tt1ngf4irys.Chatted:Connect(function(msg)
+    if not listening then return end
+    
+                if string.lower(msg) == "_bring" then
+                    if targetPlayer then
+                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+                    end
+                elseif string.lower(msg) == "_lpbring" then
+                    bringing = true
+                    while bringing do
+                        wait()
+                            if targetPlayer then
+                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+                                end
+                        end
+                elseif string.lower(msg) == "_unlpbring" then
+                    bringing = false
+
+                elseif string.lower(msg) == "_circle" then
+                    circle = true
+                    while circle do
+                        wait()
+                            local player = game:GetService("Players").LocalPlayer
+                            local target = game:GetService("Players"):FindFirstChild("r0tt1ngf4irys").Character.HumanoidRootPart
+                            
+                            local center = target.Position
+                            local radius = 3
+                            
+                            local numSteps = 32
+                            local angleStep = math.pi * 2 / numSteps
+                            
+                            local currentAngle = 0
+                            local currentStep = 0
+                            
+                            local function updatePosition()
+                                local targetX = center.X + radius * math.cos(currentAngle)
+                                local targetZ = center.Z + radius * math.sin(currentAngle)
+                                local targetY = center.Y
+                                
+                                player.Character.HumanoidRootPart.CFrame = CFrame.new(targetX, targetY, targetZ)
+                                end
+                            
+                            local function onTargetChanged(property)
+                                if property == "Position" then
+                                    center = target.Position
+                                end
+                            end
+                            
+                            target.Changed:Connect(onTargetChanged)
+                            
+                            while circle do
+                                local currentPosition = target.Position
+                                if currentPosition ~= center then
+                                    center = currentPosition
+                                    currentAngle = 0
+                                end
+                                
+                                updatePosition()
+                                
+                                currentAngle = currentAngle + angleStep
+                                currentStep = currentStep + 1
+                                
+                                wait()
+                            end
+                end
+                elseif string.lower(msg) == "_uncircle" then
+                    circle = false
+
+
+                elseif string.lower(msg) == "_trip" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Sit = true
+                elseif string.lower(msg) == "_untrip" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Sit = false
+                elseif string.lower(msg) == "_lptrip" then
+                    triping = true
+                    while triping do
+                        wait()
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Sit = true
+                    wait(0.1)
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Sit = false
+                end
+                elseif string.lower(msg) == "_unlptrip" then
+                    triping = false
+
+
+                elseif string.lower(msg) == "_die" then
+                    game:GetService("Players").LocalPlayer.Character:BreakJoints()
+                
+
+
+                elseif string.lower(msg) == "_frezze" then
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                elseif string.lower(msg) == "_unfrezze" then
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
+
+
+
+                elseif string.lower(msg) == "_sneak" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 2
+                elseif string.lower(msg) == "_walk" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 16
+                elseif string.lower(msg) == "_run" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 35
+                elseif string.lower(msg) == "_fast" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 75
+                elseif string.lower(msg) == "_sonic" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 150
+
+
+
+                elseif string.lower(msg) == "_littlejump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.UseJumpPower = true
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 10
+                elseif string.lower(msg) == "_normaljump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.UseJumpPower = true
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 50
+                elseif string.lower(msg) == "_bigjump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.UseJumpPower = true
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 75
+                elseif string.lower(msg) == "_heighjump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.UseJumpPower = true
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 125
+                elseif string.lower(msg) == "_hulk" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.UseJumpPower = true
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = 175    
+
+
+
+
+                elseif string.lower(msg) == "_jump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+                elseif string.lower(msg) == "_lpjump" then
+                    jumping = true
+                    while jumping do
+                        wait()
+                        game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+                    end
+                elseif string.lower(msg) == "_unlpjump" then
+                    jumping = false
+
+
+
+                elseif string.lower(msg) == "_small" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 1.25
+                elseif string.lower(msg) == "_medium" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 3
+                elseif string.lower(msg) == "_large" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 6
+                elseif string.lower(msg) == "_big" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 10
+                elseif string.lower(msg) == "_tall" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 20
+
+
+
+                elseif string.lower(msg) == "_follow" then
+                    following = true
+                    while following do
+                        wait()
+                        local r0tt1ngf4irys = game:GetService("Players"):FindFirstChild("r0tt1ngf4irys")
+                            if r0tt1ngf4irys then
+                                local targetPos = r0tt1ngf4irys.Character.HumanoidRootPart.Position
+                                local localPlayer = game:GetService("Players").LocalPlayer
+                                local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+                                local humanoid = character:WaitForChild("Humanoid")
+                            humanoid:MoveTo(targetPos)
+                        end
+                    end
+                elseif string.lower(msg) == "_unfollow" then
+                    following = false
+    end
+end)
+
+game:GetService("Players").LocalPlayer.Chatted:Connect(function(msg)
+    if string.lower(msg) == "_disable" then
+        listening = false
+        following = false
+        jumping = false
+        triping = false
+        bringing = false
+        circle = false
+    elseif string.lower(msg) == "_enable" then
+        listening = true
+    end
+end)
