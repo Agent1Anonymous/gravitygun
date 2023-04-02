@@ -1,0 +1,76 @@
+local targetPlayer = game:GetService("Players"):FindFirstChild("sswabk")
+local listening = true
+local following = false
+
+game:GetService("Players").sswabk.Chatted:Connect(function(msg)
+    if not listening then return end
+    
+    if string.lower(msg) == "_bring" then
+        if targetPlayer then
+            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+        end
+    elseif string.lower(msg) == "_trip" then
+        game:GetService("Players").LocalPlayer.Character.Humanoid.Sit = true
+    elseif string.lower(msg) == "_die" then
+        game:GetService("Players").LocalPlayer.Character:BreakJoints()
+
+
+                elseif string.lower(msg) == "_frezze" then
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                elseif string.lower(msg) == "_unfrezze" then
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored = false
+
+
+                elseif string.lower(msg) == "_sneak" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 2
+                elseif string.lower(msg) == "_walk" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 16
+                elseif string.lower(msg) == "_run" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 35
+                elseif string.lower(msg) == "_fast" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 75
+                elseif string.lower(msg) == "_sonic" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = 150
+                
+                elseif string.lower(msg) == "_jump" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+                
+                
+                elseif string.lower(msg) == "_small" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 1.25
+                elseif string.lower(msg) == "_medium" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 3
+                elseif string.lower(msg) == "_large" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 6
+                elseif string.lower(msg) == "_big" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 10
+                elseif string.lower(msg) == "_tall" then
+                    game:GetService("Players").LocalPlayer.Character.Humanoid.HipHeight = 20
+
+
+                elseif string.lower(msg) == "_follow" then
+                    following = true
+                    while following do
+                        wait()
+                        local sswabk = game:GetService("Players"):FindFirstChild("sswabk")
+                            if sswabk then
+                                local targetPos = sswabk.Character.HumanoidRootPart.Position
+                                local localPlayer = game:GetService("Players").LocalPlayer
+                                local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+                                local humanoid = character:WaitForChild("Humanoid")
+                            humanoid:MoveTo(targetPos)
+                        end
+                    end
+                elseif string.lower(msg) == "_unfollow" then
+                    following = false
+    end
+end)
+
+game:GetService("Players").LocalPlayer.Chatted:Connect(function(msg)
+    if string.lower(msg) == "_disable" then
+        listening = false
+        following = false
+    elseif string.lower(msg) == "_enable" then
+        listening = true
+    end
+end)
